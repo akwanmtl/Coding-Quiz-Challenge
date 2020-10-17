@@ -1,0 +1,38 @@
+/*Import fonts from Google Fonts*/
+
+/*Background image*/
+body {
+    background-image: url("../images/questionmarks.png");
+    background-repeat: repeat;
+    margin-bottom:70px; /*same height as the footer*/
+}
+#topBar{
+    display:block;
+}
+#mainContent{
+    padding-top:100px;
+    padding-left:10%;
+    padding-right:10%;
+}
+
+p {
+    font-size:20px;
+}
+
+.wrapper {
+    width: 500px;
+    text-align: center;
+}
+
+#welcomePage{
+    display:block;
+}
+
+#quizPage{
+    display:none;
+}
+
+.choices {
+    display:block;
+    margin-top:10px;
+}
