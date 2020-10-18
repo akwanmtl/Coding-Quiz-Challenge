@@ -15,24 +15,33 @@ body {
     padding-right:10%;
 }
 
+
 p {
     font-size:20px;
 }
 
-.wrapper {
+.wrapper{
     width: 500px;
     text-align: center;
 }
+
 
 #welcomePage{
     display:block;
 }
 
-#quizPage{
+#quizPage, #scorePage, #highscorePage{
     display:none;
 }
 
 .choices {
     display:block;
     margin-top:10px;
+}
+
+
+
+#feedback{
+    text-align: left;
+    display: none;
 }
