@@ -18,8 +18,10 @@ var btnArray = document.getElementsByClassName("choices");
 
 var scoreText = document.getElementById("score");
 
-var submitBtn = document.getElementById("submit");
+var initialsText = document.getElementById("inputInitials");
+var formSubmit = document.getElementById("scoreForm");
 
+var ranking = document.getElementById("ranking");
 var goBackBtn = document.getElementById("goBack");
 var clearBtn = document.getElementById("clear");
 
@@ -47,11 +49,11 @@ var questions = [
 
 ];
 var questionsTotal = questions.length; 
-var questionNumber = 0;
+var questionNumber;
 
 // function that starts the quiz and calls on timer
 function startQuiz() {
-
+    questionNumber = 0;
     timerEl.innerText = "Time: " + timeLeft;
     startTimer();
 
@@ -112,10 +114,41 @@ function endQuiz(){
 
 }
 
+function submitScore(){
+    var key = sessionStorage.length;
+    console.log(initialsText.value)
+    var entry = {
+        name: initialsText.value,
+        score: timeLeft
+    };
+    sessionStorage.setItem(key, JSON.stringify(entry));
+
+    showScore();
+}
+
 function showScore(){
-  
+
+    var arrayStorage = [];
+    for (var i = 0; i < sessionStorage.length; i++){
+        var key = sessionStorage.key(i);
+        arrayStorage.push(JSON.parse(sessionStorage.getItem(key)));
+    }
+
+    console.log(arrayStorage);
+    var table = document.createElement('table');
+    table.setAttribute("Class","table-striped");
+    
+    for (var j = 0; j < arrayStorage.length; j++){
+        var row = table.insertRow(j);
+        var cell = row.insertCell(0);
+        cell.innerHTML = (j+1) + ": " + arrayStorage[j].name + " " + arrayStorage[j].score;
+    }
+
+    ranking.replaceChild(table,ranking.childNodes[0]);
+
     topBar.style.visibility="hidden";
     scorePage.style.display="none";
+    welcomePage.style.display="none";
     highscorePage.style.display="block";
 
 }
@@ -146,6 +179,10 @@ function wrong(){
      },500);
 }
 
+function clearScore(){
+    sessionStorage.clear();
+    ranking.removeChild(ranking.childNodes[0]);
+}
   
 
 // Add event listener to startQuiz button
@@ -158,7 +195,9 @@ for(var i = 0; i < btnArray.length; i++){
     });
 }
 
-submitBtn.addEventListener("click", showScore);
+// formSubmit.addEventListener("submit", );
 
 
 goBackBtn.addEventListener("click", restart);
+
+clearBtn.addEventListener("click", clearScore);
