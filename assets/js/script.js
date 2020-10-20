@@ -33,38 +33,65 @@ var timeLeft = 75;
 var questions = [
     {
         question: "Question 1",
-        choices: ["answer 1", "answer 2","answer 3", "answer 4"],
-        answer: "answer 2"
+        choices: ["answer 1", "correct","answer 3", "answer 4"],
+        answer: "correct"
     },
     {
         question: "Question 2",
-        choices:["answer 5", "answer 6","answer 7", "answer 8"],
-        answer: "answer 8"
+        choices:["answer 5", "answer 6","answer 7", "correct"],
+        answer: "correct"
     },
     {
         question: "Question 3",
-        choices:["answer a", "answer b","answer c", "answer d"],
-        answer: "answer c"
+        choices:["answer a", "answer b","correct", "answer d"],
+        answer: "correct"
+    },
+    {
+        question: "Question 4",
+        choices:["correct", "answer f","answer g", "answer h"],
+        answer: "correct"
     }
 
 ];
 var questionsTotal = questions.length; 
 var questionNumber;
 
+function shuffleQuestions(){
+    for(var i = 0;i< questions.length; i++){
+        questions[i].choices = shuffle(questions[i].choices);
+    }
+    questions = shuffle(questions);
+}
+
+function shuffle(array) {
+    for (var i = array.length-1; i > 0; i--){
+        var j = Math.floor(Math.random()*(i+1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
+
 // function that starts the quiz and calls on timer
 function startQuiz() {
+    shuffleQuestions();
     questionNumber = 0;
     timerEl.innerText = "Time: " + timeLeft;
     startTimer();
 
-    questionText.innerText = questions[questionNumber].question;
-    for (var i = 0; i < 4; i++){
-        btnArray[i].innerText = questions[questionNumber].choices[i];
-    }
+    loadQuestion();
     
     welcomePage.style.display="none";
     quizPage.style.display="block";
 
+}
+
+function loadQuestion(){
+    questionText.innerText = questions[questionNumber].question;
+    for (var i = 0; i < 4; i++){
+        btnArray[i].innerText = questions[questionNumber].choices[i];
+    }
 }
 
 // function that starts timer countdown
@@ -97,10 +124,7 @@ function answerQuestion(answer){
         endQuiz();
     }
     else{
-        questionText.innerText = questions[questionNumber].question;
-        for (var i = 0; i < 4; i++){
-            btnArray[i].innerText = questions[questionNumber].choices[i];
-        }
+        loadQuestion();
     }    
 }
 
@@ -134,7 +158,9 @@ function showScore(){
         arrayStorage.push(JSON.parse(sessionStorage.getItem(key)));
     }
 
+    arrayStorage.sort(compare);
     console.log(arrayStorage);
+
     var table = document.createElement('table');
     table.setAttribute("Class","table-striped");
     
@@ -151,6 +177,10 @@ function showScore(){
     welcomePage.style.display="none";
     highscorePage.style.display="block";
 
+}
+
+function compare(a,b){
+    return b.score - a.score;
 }
 
 function restart(){
@@ -185,19 +215,22 @@ function clearScore(){
 }
   
 
-// Add event listener to startQuiz button
+//Callback functions for the buttons
+
+//Start Quiz button calls the startQuiz function
 startQuizBtn.addEventListener("click", startQuiz);
 
+//goes through the list of all choices buttons
 for(var i = 0; i < btnArray.length; i++){
     
+    //Choice button calls the answerQuestion function with the corresponding text of the button as an argument
     btnArray[i].addEventListener("click",function(){
         answerQuestion(this.innerText);
     });
 }
 
-// formSubmit.addEventListener("submit", );
-
-
+//Go Back button call the restart function
 goBackBtn.addEventListener("click", restart);
 
+//Clear button calls the clearScore function
 clearBtn.addEventListener("click", clearScore);
