@@ -6,9 +6,7 @@ body {
     background-repeat: repeat;
     margin-bottom:70px; /*same height as the footer*/
 }
-#topBar{
-    display:block;
-}
+
 #mainContent{
     padding-top:100px;
     padding-left:10%;
