@@ -1,52 +1,73 @@
 /*Import fonts from Google Fonts*/
+@import url('https://fonts.googleapis.com/css2?family=Commissioner&display=swap');
 
-/*Background image*/
+/*Background image and set all fonts of the website*/
 body {
     background-image: url("../images/questionmarks.png");
     background-repeat: repeat;
-    margin-bottom:70px; /*same height as the footer*/
+    font-family: 'Commissioner', sans-serif;
 }
 
+/*Bar at the top*/
+#topBar {
+    font-size:24px;
+}
+
+/*Middle content style*/
 #mainContent{
     padding-top:100px;
     padding-left:10%;
     padding-right:10%;
 }
 
-
+h1 {
+    font-size: 32px;
+}
 p {
     font-size:20px;
 }
 
 .wrapper{
-    width: 500px;
-    text-align: center;
+    width: 750px;
 }
+/*End of middle conten style*/
 
-
-#welcomePage{
+/*Sections for the middle content
+homee page is visible while the other 3 are not*/
+#homePage{
+    text-align: center;
     display:block;
 }
 
-#quizPage, #scorePage, #highscorePage{
+#quizPage, #scorePage{
     display:none;
 }
 
+#highscorePage{
+    text-align: center;
+    display:none;
+}
+
+/*Style for the choice button*/
 .choices {
     display:block;
     margin-top:10px;
-    width:150px;
+    width:250px;
 }
 
+/*Style for the wrong/correct text*/
 #feedback{
     text-align: left;
     display: none;
 }
 
+/*Div that will contain the table*/
 #ranking{
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+/*Style of the table*/
 .table-striped{
     width:300px;
 }
@@ -65,3 +86,19 @@ p {
 .table-striped>tbody>tr:nth-child(even) {
     background-color: rgb(235, 245, 253);
 }
+
+/*End for style of the table*/
+
+/*Set the placeholder colour to red
+https://stackoverflow.com/questions/51299051/placeholder-color-change-in-bootstrap*/
+.form-control::-webkit-input-placeholder { /* Edge */
+    color: red;
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: red;
+  }
+  
+  ::placeholder {
+    color: red;
+  }
