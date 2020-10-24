@@ -56,9 +56,9 @@ homee page is visible while the other 3 are not*/
 }
 
 /*Style for the wrong/correct text*/
-#feedback{
+.feedback{
     text-align: left;
-    display: none;
+    visibility: hidden;
 }
 
 /*Div that will contain the table*/

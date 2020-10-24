@@ -16,7 +16,7 @@ var startQuizBtn = document.getElementById("startQuiz"); //The button on the hom
 // quiz page elements
 var questionText = document.getElementById("question"); //The element that contains the question
 var btnArray = document.getElementsByClassName("choices"); //The elements referring to the 4 buttons choices
-var feedbackSection = document.getElementById("feedback"); //The element that shows whether the user is correct or incorrect
+var feedbackSection = document.getElementsByClassName("feedback"); //The element that shows whether the user is correct or incorrect
 
 // enter score page
 var scoreText = document.getElementById("score"); //The element that diplays the score of the user
@@ -87,34 +87,6 @@ var questions = [
     }
 ];
 //https://letsfindcourse.com/technical-questions/javascript-mcq/javascript-mcq-questions
-//http://mcqspdfs.blogspot.com/2013/08/60-top-javascript-multiple-choice.html
-
-
-/* Template for questions
-var questions = [
-    {
-        question: "Question 1",
-        choices: ["answer 1", "correct","answer 3", "answer 4"],
-        answer: "correct"
-    },
-    {
-        question: "Question 2",
-        choices:["answer 5", "answer 6","answer 7", "correct"],
-        answer: "correct"
-    },
-    {
-        question: "Question 3",
-        choices:["answer a", "answer b","correct", "answer d"],
-        answer: "correct"
-    },
-    {
-        question: "Question 4",
-        choices:["correct", "answer f","answer g", "answer h"],
-        answer: "correct"
-    }
-
-];
-*/
 
 var questionsTotal = 5; //The total number of questions for the quiz
 var questionNumber; //Declaring counter for question number
@@ -188,14 +160,14 @@ function timerRed(){
 // if the answer is wrong, deduct 10 from the time left and calls the wrong() function
 function answerQuestion(answer){
     if(answer === questions[questionNumber].answer){
-        correct();
+        feedbackDisplay("Correct");
     }
     else {
         timeLeft -= 10;
         if(timeLeft <=0) timeLeft = 0;
         timerTxt.innerText = "Time: " + timeLeft;
         timerRed();
-        wrong();
+        feedbackDisplay("Wrong");
     }
     questionNumber++;
     //checks to see if all the questions has been answered
@@ -207,22 +179,21 @@ function answerQuestion(answer){
     }    
 }
 
-// displays Correct at below for 0.5 sec
-function correct(){
-    feedbackSection.children[1].innerText = "Correct";
-    feedbackSection.style.display="block";
-    setTimeout(function(){
-         feedbackSection.style.display="none";
-     },500);
+// function used to show whether the user is correct or wrong
+function feedbackDisplay(word){
+    for(var i = 0; i < feedbackSection.length; i++){
+        feedbackSection[i].children[1].innerText = word;
+        feedbackSection[i].style.visibility="visible";
+        delay(i);
+    }
 }
 
-// displays Wrong at below for 0.5 sec
-function wrong(){
-    feedbackSection.children[1].innerText = "Wrong";
-    feedbackSection.style.display="block";
+// Delay function 
+function delay(i){
     setTimeout(function(){
-         feedbackSection.style.display="none";
-     },500);
+        console.log(i)
+        feedbackSection[i].style.visibility="hidden";
+    },700); //0.7 sec
 }
 
 // at the end of the quiz, clear Interval and display the page to enter initials 
@@ -251,38 +222,49 @@ function submitScore(){
 
 // displays in a table the highscores
 function showScore(){
-
-    // get the items in sessionStorage and store in array
-    var arrayStorage = [];
-    for (var i = 0; i < sessionStorage.length; i++){
-        var key = sessionStorage.key(i);
-        arrayStorage.push(JSON.parse(sessionStorage.getItem(key)));
-    }
-
-    //sort the array based on score in descending order
-    // arrayStorage.sort(compare);
-    arrayStorage.sort(function(a,b){
-        return b.score - a.score;
-    });
-
-    //creates a table each time with class table-striped
-    var table = document.createElement('table');
-    table.setAttribute("Class","table-striped");
     
-    //for each item in the list, insert a row and cell with the initals and the score
-    for (var j = 0; j < arrayStorage.length; j++){
-        var row = table.insertRow(j);
-        var cell = row.insertCell(0);
-        cell.innerHTML = (j+1) + ": " + arrayStorage[j].name + " " + arrayStorage[j].score;
+    // Check if the sessionStorage is empty
+    if (sessionStorage.length != 0){
+        // get the items in sessionStorage and store in array
+        var arrayStorage = [];
+        for (var i = 0; i < sessionStorage.length; i++){
+            var key = sessionStorage.key(i);
+            arrayStorage.push(JSON.parse(sessionStorage.getItem(key)));
+        }
+
+        //sort the array based on score in descending order
+        // arrayStorage.sort(compare);
+        arrayStorage.sort(function(a,b){
+            return b.score - a.score;
+        });
+
+        //creates a table each time with class table-striped
+        var table = document.createElement('table');
+        table.setAttribute("Class","table-striped");
+        
+        //for each item in the list, insert a row and cell with the initals and the score
+        // for (var j = 0; j < arrayStorage.length; j++){
+        //     var row = table.insertRow(j);
+        //     var cell = row.insertCell(0);
+        //     cell.innerHTML = (j+1) + ": " + arrayStorage[j].name + " " + arrayStorage[j].score;
+        // }
+        for (var j = 0; j < arrayStorage.length; j++){
+            var row = table.insertRow(j);
+            var cell = row.insertCell(0);
+            cell.innerHTML = (j+1) + ": " + arrayStorage[j].name + " " + arrayStorage[j].score;
+        }
+
+        //the new table replaces the existing one (if any) under the div ranking
+        ranking.replaceChild(table,ranking.childNodes[0]);
     }
-
-    //the new table replaces the existing one (if any) under the div ranking
-    ranking.replaceChild(table,ranking.childNodes[0]);
-
+    
     topBar.style.visibility="hidden";
     scorePage.style.display="none";
     homePage.style.display="none";
+    quizPage.style.display="none";
     highscorePage.style.display="block";
+
+    clearInterval(timerID); 
 
 }
 
