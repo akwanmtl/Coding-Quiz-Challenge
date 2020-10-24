@@ -15,7 +15,7 @@ Here is the outline of the website works.
 7. The leaderboard is displayed. The user can choose to clear the leaderboard and/or return back to the home page.
 
 Here are the screenshots of online quiz.
-![Website Screenshot](assets/images/screenshot.PNG) 
+![Website Screenshot](assets/images/screenshot.png) 
 
 Link to the Github repository: https://github.com/akwanmtl/Coding-Quiz-Challenge
 
