@@ -25,6 +25,7 @@ Link to the website: https://akwanmtl.github.io/Coding-Quiz-Challenge/
 
 * [LETSFINDCOURSE website](https://letsfindcourse.com/technical-questions/javascript-mcq/javascript-mcq-questions)
 * [Stackoverflow response about changing placeholder colour](https://stackoverflow.com/questions/51299051/placeholder-color-change-in-bootstrapp)
+* [Medium Post by Soyeong Oh - Watch Out When Using SetTimeout() in For Loop #JS] (https://medium.com/@axionoso/watch-out-when-using-settimeout-in-for-loop-js-75a047e27a5f)
 * [License badge link](https://gist.github.com/lukas-h/2a5d00690736b4c3a7ba)
 
 
