@@ -68,25 +68,36 @@ homee page is visible while the other 3 are not*/
 }
 
 /*Style of the table*/
-.table-striped{
+table{
     width:300px;
 }
 
 .table-striped>tbody>tr>td{
-    text-align: left;
-    padding-left:10px;
     padding-top:10px;
     padding-bottom:5px;
 }
 
-.table-striped>tbody>tr:nth-child(odd) {
+.table-striped>tbody>tr:nth-child(even) {
     background-color: lightblue;
 }
 
-.table-striped>tbody>tr:nth-child(even) {
+.table-striped>tbody>tr:nth-child(odd) {
     background-color: rgb(235, 245, 253);
 }
 
+/*Changes so that the top 3 are bolded and has different colours*/
+.table-striped>tbody>tr:nth-child(1) {
+    color:#E4D600;
+    font-weight: bold;
+}
+.table-striped>tbody>tr:nth-child(2) {
+    color:#A6A6A5;
+    font-weight: bold;
+}
+.table-striped>tbody>tr:nth-child(3) {
+    color:#B35604;
+    font-weight: bold;
+}
 /*End for style of the table*/
 
 /*Set the placeholder colour to red

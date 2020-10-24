@@ -210,9 +210,9 @@ function endQuiz(){
 // add a new item in sessionStorage using JSON object then calls showScore()
 function submitScore(){
     var key = sessionStorage.length;
-    console.log(initialsText.value)
+    // console.log(initialsText.value)
     var entry = {
-        name: initialsText.value,
+        name: initialsText.value.trim(),
         score: timeLeft
     };
     sessionStorage.setItem(key, JSON.stringify(entry));
@@ -240,18 +240,14 @@ function showScore(){
 
         //creates a table each time with class table-striped
         var table = document.createElement('table');
-        table.setAttribute("Class","table-striped");
+        table.setAttribute("Class","table-striped table-bordered");
         
-        //for each item in the list, insert a row and cell with the initals and the score
-        // for (var j = 0; j < arrayStorage.length; j++){
-        //     var row = table.insertRow(j);
-        //     var cell = row.insertCell(0);
-        //     cell.innerHTML = (j+1) + ": " + arrayStorage[j].name + " " + arrayStorage[j].score;
-        // }
         for (var j = 0; j < arrayStorage.length; j++){
             var row = table.insertRow(j);
-            var cell = row.insertCell(0);
-            cell.innerHTML = (j+1) + ": " + arrayStorage[j].name + " " + arrayStorage[j].score;
+            var rank = j+1;
+            row.insertCell(0).outerHTML = "<th>"+rank+"</th>";
+            row.insertCell(1).innerHTML = arrayStorage[j].name.trim();
+            row.insertCell(2).innerHTML = arrayStorage[j].score;
         }
 
         //the new table replaces the existing one (if any) under the div ranking
@@ -306,7 +302,8 @@ submitBtn.addEventListener("click", function(event){
     event.preventDefault(); //prevent the default event
 
     // Check and make sure that user enter initals
-    if(initialsText.value === ""){
+    if(initialsText.value.trim() === ""){
+        initialsText.value = "";
         initialsText.setAttribute("placeholder","Please enter initials");
         return false;
     }
