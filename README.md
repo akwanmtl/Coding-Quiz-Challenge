@@ -12,7 +12,7 @@ Here is the outline of the website works.
 4. When a wrong answer is selected, 10 sec is deducted. The user is notified whether they answered correctly or incorrectly.
 5. When the user finishes answering the last question, or the timer is at 0 sec, the quiz has ended.
 6. The user is presented with their score. The user can enter their initials.
-7. The leaderboard is displayed. The user can choose to clear the leaderboard and/or return back to the home page.
+7. The leaderboard is displayed as a table. All initials are capitalized. The top three scores will be stylized in 'gold','silver', and 'bronze' colour text. The user can choose to clear the leaderboard and/or return back to the home page.
 
 Here are the screenshots of online quiz.
 ![Website Screenshot](assets/images/screenshot.png) 
