@@ -18,6 +18,7 @@ var questionText = document.getElementById("question"); //The element that conta
 var btnArray = document.getElementsByClassName("choices"); //The elements referring to the 4 buttons choices
 var feedbackSection = document.getElementsByClassName("feedback"); //The element that shows whether the user is correct or incorrect
 
+
 // enter score page
 var scoreText = document.getElementById("score"); //The element that diplays the score of the user
 var initialsText = document.getElementById("inputInitials"); //The input field that contains the user 
@@ -28,68 +29,15 @@ var ranking = document.getElementById("ranking"); //The section that will contai
 var goBackBtn = document.getElementById("goBack"); //The button to go back to the home page
 var clearBtn = document.getElementById("clear"); //the button to clear the highscores
 
-//Timer component
-var timerID; // Declaring the variable for the setInterval
-var timeLeft = 75; // set the time for the quiz to 75 sec
-
-// array of question objects
-// each object contains the property question, choices, and answer
-var questions = [
-    {
-        question: "______ tag is an extension to HTML that can enclose any number of JavaScript statements.",
-        choices: ["<script>", "<body>","<head>", "<title>"],
-        answer: "<script>"
-    },
-    {
-        question: "Using _______ statement is how you test for a specific condition.",
-        choices:["if", "select","switch", "for"],
-        answer: "if"
-    },
-    {
-        question: '<script type="text/javascript">\nx=4+"4";\ndocument.write(x);\n</script>\nOutput----?',
-        choices:["44", "8","4", "Error Output"],
-        answer: "44"
-    },
-    {
-        question: 'What is the correct syntax for referring to an external script called " abc.js"?',
-        choices:['<script scr=" abc.js">', '<script href=" abc.js">','<script name=" abc.js">', '<script rel=" abc.js">'],
-        answer: '<script scr=" abc.js">'
-    },
-    {
-        question: 'Which of the following is not JavaScript Data Types?',
-        choices:['Float', 'Number','Boolean', 'Undefined'],
-        answer: 'Float'
-    },
-    {
-        question: 'Among the following, which one is a ternary operator in JavaScript?',
-        choices:['?:', '::','&:', '#'],
-        answer: '?:'
-    },
-    {
-        question: 'Which of them is not the looping structures in JavaScript?',
-        choices:['forwhile', 'for','while', 'dowhile'],
-        answer: 'forwhile'
-    },
-    {
-        question: 'How to get a particular value using the tagged name?',
-        choices:['getElementsbyTagName()', 'getElementbyID()','getElementsbyName()', 'getTagName()'],
-        answer: 'getElementsbyTagName()'
-    },
-    {
-        question: 'Among the keywords below, which one is not a statement?',
-        choices:['use strict', 'if','with', 'debugger'],
-        answer: 'use strict'
-    },
-    {
-        question: 'Which symbol is used for comments in Javascript?',
-        choices:['//', '\\\\','\\* *\\', '\\* */'],
-        answer: '//'
-    }
-];
-//https://letsfindcourse.com/technical-questions/javascript-mcq/javascript-mcq-questions
-
+//Questions components 
 var questionsTotal = 5; //The total number of questions for the quiz
 var questionNumber; //Declaring counter for question number
+
+//Timer component
+var timerID; // Declaring the variable for the setInterval
+var timeLeft = questionsTotal*15; // set the time for the quiz to 15 sec per question
+
+
 
 //Shuffle the questions and choices calling on the shuffle(array) funciton 
 function shuffleQuestions(){
@@ -122,7 +70,6 @@ function startQuiz() {
     
     homePage.style.display="none";
     quizPage.style.display="block";
-
 }
 
 // Changes the text of the question and buttons
@@ -191,7 +138,6 @@ function feedbackDisplay(word){
 // Delay function 
 function delay(i){
     setTimeout(function(){
-        console.log(i)
         feedbackSection[i].style.visibility="hidden";
     },700); //0.7 sec
 }
@@ -212,7 +158,7 @@ function submitScore(){
     var key = sessionStorage.length;
     // console.log(initialsText.value)
     var entry = {
-        name: initialsText.value.trim(),
+        name: initialsText.value.toUpperCase().trim(),
         score: timeLeft
     };
     sessionStorage.setItem(key, JSON.stringify(entry));
